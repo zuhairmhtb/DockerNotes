@@ -136,3 +136,63 @@ Containers inside the same private network can communicate with each other
 $ docker network connect <network name> <container name>
 
 A container can belong to multiple networks.
+
+26. Pull images:
+
+$ docker pull
+
+27. Push images:
+
+$ docker push
+
+28. Remove images
+
+$ docker rmi <image id>
+
+29. Volumes are shared folders or virtual disks where you can store data and share between containers in the host or with the host. There are two types of volumes:
+
+    a. Persistent
+
+    b. Ephemeral
+
+Volumes are not part of images.
+
+30. Create a shared folder in the container to share with the host
+
+$ docker run -ti -v /path/to/folder:/<path within the container that contains the shared folder> ubuntu bash
+
+e.g. docker run -ti -v /example:/shared-folder ubuntu bash
+
+The folder 'shared folder' will then be available in 'example' folder on the host machine. When sharing a file inside a container, the file must be created first before sharing the file or else docker will assume it is a folder name.
+
+
+31. Create a shared folder in the container to share with other containers and not the host
+
+$ docker run -ti -v /<shared folder name> ubuntu bash
+
+The folder is not available to the host.
+
+To access the shared folder from another container run:
+
+$ docker run -ti --volumes-from <container namew which contains the shared folder> ubuntu bash
+
+The shared folder will then be available in this container. When all containers sharing a volume are kiled, only then does the shared volume get deleted.
+Therefore, volumes are ephemeral.
+
+32. Docker images are retrieved from registies and published through it. A registry is a piece of software that manage and distribute images. You can host your own registries to keep data private.
+
+33. Search packages
+
+$ docker search <package name>
+
+34. Login to docker hub:
+
+$ docker login
+
+35. Push an image to docker hub
+
+$ docker tag <image name> <docker hub username>/<image name in docker hub>  [ Creates a new image from another image]
+
+$ docker push <docker hub username>/<image name in docker hub>
+
+Don't push images to public docker hub containing confidential informtion.
