@@ -66,6 +66,7 @@ press Ctrl-p + Ctrl-q
 14. To add process to a running container:
 
 $ docker exec -ti <container name> <process name>
+
 e.g. docker exec -ti <container name> bash
 
 15. Docker keeps output of a container in docker logs as long as the container is running.
@@ -91,15 +92,47 @@ $ docker run --cpu-shares
 It is relative to other containers to add CPU usage limit
 
 $ docker run --cpu-quota
+
 It is used to limit CPU usage in general
 
 19. To expose a port in a container:
+
 $  docker run --rm -ti -p 45678:45678 -p 45679:45679 --name echo-server ubuntu:latest bash
+
 The format is <docker port>:<desktop port>
 
 20. If you want to acces a port of the desktop on which a container is running, from the terminal inside the container you should use the address which refers to the host:
+
 $ nc host.docker.internal <port>
+
 host.docker.internal is a default name for the host desktop. On windows, IP address of the machine works too.
 
 21. To view port mapping of a container run:
+
 $ docker port <container name>
+
+22. To view existing networks of docker:
+
+$ docker network ls
+
+Bridge: Used by containers that do not specify preference to be put into any other network
+
+Host: When you want a container to not have any network isolation at all. It has some security concerns
+
+None: When container should not have any networking.
+
+23. Creating a network
+
+$ docker network create <network name>
+
+24. When creating a container, specify  container using --net <network name>
+
+$ docker run --rm -ti --net <network name> --name <container name> ubuntu:latest bash
+
+Containers inside the same private network can communicate with each other
+
+25. Connect a running container to a network
+
+$ docker network connect <network name> <container name>
+
+A container can belong to multiple networks.
