@@ -196,3 +196,71 @@ $ docker tag <image name> <docker hub username>/<image name in docker hub>  [ Cr
 $ docker push <docker hub username>/<image name in docker hub>
 
 Don't push images to public docker hub containing confidential informtion.
+
+36. Docker files are small program to create an image. You run the program with:
+
+$ docker build -t <image name> .
+
+The dot refers to the current directory which should contain the docker file. The -t tag creates a name for the image.
+
+Each step of running a dockerfile is cached. Docker can skip lines that weren't changed since the last build.
+
+The parts that change the most belong at the end of the dockerfile.
+
+Dockerfiles are not shell scripts.
+
+Processes you start on one line will not be running on the next line. If you want two programs to keep running at the same time, the commands to run the programs should be on the same line. If they are on different lines, the second program will start after the first one ends.
+
+Environment variables you set will be available on the next lines.
+
+37. To build a docker file:
+
+    a. Make a file called dockerfile
+
+        Filename: Dockerfile
+
+        FROM busybox # The image to begin with
+
+        RUN echo "Building simple docker image" # Run a command through shell and after running the container it saves it into the an image
+
+        CMD echo "Hello container" # Run container after saving the image
+
+    Finally it creates an image
+
+    b. Build the dockerfile:
+
+        $ docker build -t hello .
+
+    c. Installing a program with dockerfile
+
+        Filename: Dockerfile
+
+        FROM debian:sid
+
+        RUN apt-get -y update
+
+        RUN apt-get -y install nano
+
+        ADD notes.txt /notes.txt # Add content from machine to container
+
+        CMD ["/bin/nano", "/notes.txt"]
+
+
+    d. 'ADD' commnand can copy files (given above), uncompress tar file and copy it to a container's folder e.g. ADD exmaple.tar.gz /folder and download content from a URL and copy it into a folder e.g. ADD example.com/download/project.rpm /project
+
+    e. 'ENV' statement sets environment variables for all steps when building a docker file and the variables will be available in the image which is created.
+
+        e.g. ENV DB_HOST=example.com
+
+    f. 'ENTRYPOINT' statement specifies the start of a command to run
+
+    g. 'CMD' specifies while command to run.
+
+    h. 'EXPOSE' statement maps port of a container.
+
+    i. 'VOLUME' statement defines shared or ephemeral volume. Generally, avoid shared volumes as it will remove the portablility of docker file as the folder is only available on the current machine.
+
+    j. 'WORKDIR' command sets the working directory where commands will get executed.
+
+    k. 'USER' statement sets which user container will run as.
+

@@ -1,0 +1,5 @@
+FROM debian:sid
+RUN apt-get -y update
+RUN apt-get -y install nano
+ADD notes.txt /notes.txt
+CMD ["/bin/nano", "/notes.txt"]
