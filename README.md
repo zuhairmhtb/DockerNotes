@@ -264,3 +264,11 @@ Environment variables you set will be available on the next lines.
 
     k. 'USER' statement sets which user container will run as.
 
+38. To inspect a docker container run:
+
+    $ docker inspect --format '{{.State.Pid}}' <container name>
+
+It returns the process id of the running container.
+
+
+
