@@ -99,7 +99,7 @@ It is used to limit CPU usage in general
 
 $  docker run --rm -ti -p 45678:45678 -p 45679:45679 --name echo-server ubuntu:latest bash
 
-The format is <docker port>:<desktop port>
+The format is <desktop port>:<docker port>
 
 20. If you want to acces a port of the desktop on which a container is running, from the terminal inside the container you should use the address which refers to the host:
 
