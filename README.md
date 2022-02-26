@@ -271,4 +271,41 @@ Environment variables you set will be available on the next lines.
 It returns the process id of the running container.
 
 
+39. Docker Swarm:
+
+A docker swarm is a collection of nodes (CPU instances) collaborating together to run cluster of containers. A swarm contains one or manager which manages all the services and one or more worker nodes where the services run. If a node goes down, the manager restarts the services running on that node in other nodes to maintain fault tolerance.
+
+    a. Create a swarm:
+
+        $ docker swarm init --advertise-addr <ip_addr_of_host>
+
+    The node which starts the swarm becomes the swarm manager.
+
+    b. Join a swarm:
+
+        $ node swarm join --token <token_provided_when_initializing_the_swarm>
+
+    c. View swarm token to join as a worker:
+
+        $ docker swarm join-token worker
+
+    d. View swarm token to join as a manager
+
+        $ docker swarm join-token manager
+
+40. Docker Service:
+
+A docker service can run one or more docker containers in it and is usually run through a swarm manager. The instances of that service then gets replicated to other worker nodes.
+
+    a. Create a service:
+
+        $ docker service create --replicas <number of replicas> --name=<service name> <image name>
+
+    This creates a service with specified number of replicas which automatically gets distributed across all nodes. If a node goes down, in order to maintain the number of replicas, the instances of the inactive nodes are distributed across other active nodes.
+
+    b. Create a service with one instance for each node (Global service):
+
+        $ docker service create --mode global --name <service_name> <image_name>
+
+    
 
