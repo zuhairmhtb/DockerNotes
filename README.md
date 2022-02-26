@@ -293,7 +293,11 @@ A docker swarm is a collection of nodes (CPU instances) collaborating together t
 
         $ docker swarm join-token manager
 
-40. Docker Service:
+40. Docker Stack:
+
+A docker stack contains the configuration for starting one or more services. The configuration is defined in a yml file which when run in a swarm manager instantiates all the services defined in the stack as per the configuration. This is used to manage multiple services across multiple nodes.
+
+41. Docker Service:
 
 A docker service can run one or more docker containers in it and is usually run through a swarm manager. The instances of that service then gets replicated to other worker nodes.
 
@@ -306,6 +310,26 @@ A docker service can run one or more docker containers in it and is usually run 
     b. Create a service with one instance for each node (Global service):
 
         $ docker service create --mode global --name <service_name> <image_name>
+
+    c. Stop a service
+
+        $ docker service rm <service name>
+
+    d. View running services
+
+        $ docker service ls
+
+42. Docker Image
+
+Docker image is an executable package that includes everything needed to run an application - the code, a runtime, libraries, environment variables, and configuration files.
+
+A container is a runtime of an image.
+
+Docker images are made of layers. Images have multiple read-only layers. Multiple containers are typically based on the same image. When an image is instantiated into a container, a top writable layer is created and it is deleted when the container is removed. 
+
+Docker uses storage drivers to manage the contents of the image layers and the writable container layer. Each storage driver handles the implementation differently, but all drivers use stackable image layers and the copy-on-write (COW) strategy.
+
+The configuration file which builds a docker image is the Docker file. It contains all commands needed to build an image.
 
     
 
