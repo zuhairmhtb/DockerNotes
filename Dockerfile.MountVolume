@@ -1,0 +1,4 @@
+FROM alpine
+WORKDIR /home/sample-folder
+
+# To mount a volume so that files in the container can be added in real time use: docker run --rm -ti -v %cd%/sample-folder:/home/sample-folder sample /bin/sh
